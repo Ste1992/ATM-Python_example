@@ -1,3 +1,4 @@
+import random
 from login import Login  # importa la classe Login dal file login.py
 
 
@@ -11,6 +12,7 @@ class Correntista:
         self.cognome = None  # User's surname
         self.email = None
         self.password = None
+        self.nuovo_iban = None
         self.saldo = 0.0  # User's balance
         self.nome_ricevente = None  # Receiver's name
         self.cognome_ricevente = None  # Receiver's surname
@@ -29,6 +31,19 @@ class Correntista:
         self.accounts.add(Login("Daniele", "Rossi", "imtheworst@outlook.it", "passuord",
                                 1800.0, "IT24630215342"))
         return self.accounts
+
+    def iban_generator(self):
+        letters = "ABCDEFGHILKMNOPQRSTUWVUXYZ"  # Letters' string
+        numbers = "0123456789"  # Numbers' string
+
+        # Generate a 12 string casual characters: (8 letters, 2 numbers)
+        random_part = random.choices(letters, k=10) + random.choices(numbers, k=2)
+
+        for account in self.accounts:  # Checks through the accounts
+            if self.nuovo_iban != account.iban:  # whether the generated iban exists already
+
+                self.nuovo_iban = "IT" + ''.join(random_part)  # Adds the "IT" prefix at the random_part
+                break
 
     def welcome(self):  # Welcome menu
         print("Benvenuto in Fuckbank!\nSeleziona dal menù:\n\t1. Registrati\n\t2. Login")
@@ -51,7 +66,7 @@ class Correntista:
             Cognome: {self.cognome}
             Email: {self.email}
             Password: {self.password}
-            ***""")
+            IBAN: {self.nuovo_iban}""")
             self.accounts.add(Login(self.nome, self.cognome, self.email, self.password, 0.0, "IBAN"))
 
     def login_utente(self):  # User login method
