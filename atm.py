@@ -3,10 +3,11 @@ from correntista import Correntista
 
 class Atm:
     correntista = Correntista()  # Initializes the "correntista" class in order to access its methods
+    correntista.load_data_from_csv("account_data.csv")  # Loads the data at the start of the program
 
     access = False  # Inizialmente l'utente non è loggato
     registrazione_completata = False
-    correntista.accounts_registrati()  # Gets the registered accounts list
+    correntista.iban_generator()
     correntista.welcome()
 
     while True:
@@ -19,6 +20,7 @@ class Atm:
 
             if scelta == 1:  # The user signs up and logs in
                 correntista.registrazione_utente()
+                correntista.save_data_to_csv("account_data.csv")  # Saves the data every time changes occur
                 registrazione_completata = True  # The user signed up
                 correntista.login_utente()
                 access = True  # Login successful
@@ -41,14 +43,19 @@ class Atm:
 
             if scelta == 1:  # Bank deposit
                 correntista.deposito()
+                correntista.save_data_to_csv("account_data.csv")
                 continue
             elif scelta == 2:  # Withdrawal
                 correntista.prelievo()
+                correntista.save_data_to_csv("account_data.csv")
                 continue
             elif scelta == 3:  # Bank transfer
                 correntista.bonifico()
+                correntista.save_data_to_csv("account_data.csv")
                 continue
             elif scelta == 4:
                 correntista.logout()
                 access = False  # Stops the session
+                correntista.save_data_to_csv("account_data.csv")
+                print("Account scollegato con successo.")
                 break
