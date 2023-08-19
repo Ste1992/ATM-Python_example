@@ -7,7 +7,6 @@ class Correntista:
     database = LoginDatabase()
 
     def __init__(self):  # Initilizing the variables
-        self.login = Login("cognome", "nome", "email", "password", 0.0, "IBAN")
         self.account = None  # Logged in account
         self.account_loggato = None
         self.nome = None  # User's name
