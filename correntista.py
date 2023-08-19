@@ -2,8 +2,6 @@ import random
 import string
 from account_database import LoginDatabase
 
-from login import Login  # importa la classe Login dal file login.py
-
 
 class Correntista:
     database = LoginDatabase()
